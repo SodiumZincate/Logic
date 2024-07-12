@@ -9,6 +9,11 @@ class Logic{
 		int operator*(Logic x){
 			return state && x.state;
 		}
+		int operator*(int x){
+			return state && x;
+		}
+		friend int operator*(Logic x);
+
 		int operator+(Logic x){
 			return state || x.state;
 		}
@@ -16,6 +21,11 @@ class Logic{
 			return state || x;
 		}
 		friend int operator+(Logic x);
+
+		int operator!(){
+			return !state;
+		}
+
 		Logic(int x){
 			state = x;
 		}
@@ -29,6 +39,9 @@ class Logic{
 
 int operator+(int x, Logic y){
 	return x || y.state;
+}
+int operator*(int x, Logic y){
+	return x && y.state;
 }
 
 int main(int argc, char* argv[])
@@ -121,14 +134,18 @@ int main(int argc, char* argv[])
 		std::cout << std::endl;
 	}
 
-	Logic a,b,c;
+	Logic a,b,c,d,e,f,g,h;
 	for(i=0; i<rows; i++){
 		a.init(input[i][0]);
 		b.init(input[i][1]);
 		c.init(input[i][2]);
-		std::cout << a+b+c << std::endl;
-		std::cout << std::endl;
+		d.init(input[i][3]);
+		e.init(input[i][4]);
+		f.init(input[i][5]);
+		g.init(input[i][6]);
+		h.init(input[i][7]);
 	}
+	int x = (a*b)+(!a);
 
 	return 0;
 }
