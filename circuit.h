@@ -1,7 +1,8 @@
+#pragma once
+
 #include<iostream>
 #include<vector>
 #include<cmath>
-// #include<string>
 
 enum State{
 	Low = 0,
@@ -21,15 +22,26 @@ class Logic{
 		friend State operator*(State, Logic);
 		friend State operator*(State, State);
 
+		friend State AND(Logic&, Logic&);
+		friend State AND(Logic&, State);
+		friend State AND(State, Logic&);
+
 		State operator+(Logic);
 		State operator+(State);
 		friend State operator+(State, Logic);
 		friend State operator+(State, State);
 
+		friend State OR(Logic&, Logic&);
+		friend State OR(Logic&, State);
+		friend State OR(State, Logic&);
+
 		State operator!();
 
-		State XOR(Logic x);
-		State XOR(State x);
-		friend State XOR(State, Logic);
-		friend State XOR(State, State);
+		friend State XOR(Logic&, Logic&);
+		friend State XOR(Logic&, State);
+		friend State XOR(State, Logic&);
 };
+
+State OR(State, State);
+State AND(State, State);
+State XOR(State, State);

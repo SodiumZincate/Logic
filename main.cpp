@@ -49,16 +49,16 @@ int main(int argc, char* argv[])
 	std::cout << std::endl;
 	std::cout << std::endl;
 
-	bool is_one = true;
+	State is_one = High;
 	for(i=0; i<cols; i++){
 		int c = 0;
 		static int counter = (int)pow(2, cols-1);
 		for(j=0; j<rows; j++){
 			if(c % counter == 0 && is_one == High){
-				is_one = false;
+				is_one = Low;
 			}
 			else if(c % counter == 0 && is_one == Low){
-				is_one = true;
+				is_one = High;
 			}
 			if(is_one){
 				input_temp[i][j] = State::High;
@@ -104,8 +104,12 @@ int main(int argc, char* argv[])
 		f.init(input[i][5]);
 		g.init(input[i][6]);
 		h.init(input[i][7]);
-		// std::cout << (a*b)+(a+b) << std::endl;
-		
+		State carry_in = State::High;
+		State sum, carry_out;
+		sum = XOR(XOR(a,b), carry_in);
+		carry_out = OR(AND(XOR(a,b), carry_in), AND(a,b));
+		std::cout << "Sum: " << sum << std::endl;
+		std::cout << "Carry Out: " << carry_out << std::endl;
 	}
 
 	return 0;

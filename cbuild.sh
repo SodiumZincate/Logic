@@ -3,8 +3,8 @@ if [ -z "$1" ]; then
 	exit 1
 fi
 
-g++ -o main.o -c main.cpp
 g++ -o circuit.o -c circuit.cpp
+g++ -o main.o -c main.cpp
 
 g++ -o main main.o circuit.o
 ./main $1
