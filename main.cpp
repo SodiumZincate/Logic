@@ -105,7 +105,7 @@ int main(int argc, char* argv[])
 		g.init(input[i][6]);
 		h.init(input[i][7]);
 		// std::cout << (a*b)+(a+b) << std::endl;
-		// std::cout << ()(!(a*b)*(a+b)) << std::endl;
+		
 	}
 
 	return 0;

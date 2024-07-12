@@ -32,5 +32,4 @@ class Logic{
 		State XOR(State x);
 		friend State XOR(State, Logic);
 		friend State XOR(State, State);
-
 };
