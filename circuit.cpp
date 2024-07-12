@@ -3,54 +3,58 @@
 #include<cmath>
 // #include<string>
 
-enum Bool{
-	False = 0,
-	True = 1
+enum State{
+	Low = 0,
+	High = 1
 };
 
 class Logic{
+	private:
+		State state;
 	public:
-		Bool state;
-		Bool operator*(Logic x){
-			return static_cast<Bool>(static_cast<int>(state) && static_cast<int>(x.state));
+		State operator*(Logic x){
+			return static_cast<State>(static_cast<int>(state) && static_cast<int>(x.state));
 		}
-		Bool operator*(Bool x){
-			return static_cast<Bool>(static_cast<int>(state) && static_cast<int>(x));
+		State operator*(State x){
+			return static_cast<State>(static_cast<int>(state) && static_cast<int>(x));
 		}
-		friend Bool operator*(Logic x);
+		friend State operator*(State x, Logic y);
 
-		Bool operator+(Logic x){
-			return static_cast<Bool>(static_cast<int>(state) || static_cast<int>(x.state));
+		State operator+(Logic x){
+			return static_cast<State>(static_cast<int>(state) || static_cast<int>(x.state));
 		}
-		Bool operator+(Bool x){
-			return static_cast<Bool>(static_cast<int>(state) || static_cast<int>(x));
+		State operator+(State x){
+			return static_cast<State>(static_cast<int>(state) || static_cast<int>(x));
 		}
-		friend Bool operator+(Bool, Logic);
-		friend Bool operator+(Bool, Bool);
+		friend State operator+(State, Logic);
+		friend State operator+(State, State);
 
-		Bool operator!(){
-			return static_cast<Bool>(!static_cast<int>(state));
+		State operator!(){
+			return static_cast<State>(!static_cast<int>(state));
 		}
 
-		Logic(Bool x){
+		Logic(State x){
 			state = x;
 		}
 		Logic(){
-			state = Bool::False;
+			state = State::Low;
 		}
-		void init(Bool x){
+		void init(State x){
 			state = x;
 		}
 };
 
-Bool operator+(Bool x, Logic y){
-	return static_cast<Bool>(static_cast<int>(x) || static_cast<int>(y.state));
+State operator+(State x, Logic y){
+	return static_cast<State>(static_cast<int>(x) || static_cast<int>(y.state));
 }
-Bool operator+(Bool x, Bool y){
-	return static_cast<Bool>(static_cast<int>(x) || static_cast<int>(y));
+State operator+(State x, State y){
+	return static_cast<State>(static_cast<int>(x) || static_cast<int>(y));
 }
-Bool operator*(Bool x, Logic y){
-	return static_cast<Bool>(static_cast<int>(x) && static_cast<int>(y.state));
+State operator*(State x, Logic y){
+	return static_cast<State>(static_cast<int>(x) && static_cast<int>(y.state));
+}
+State operator*(State x, State y){
+	return static_cast<State>(static_cast<int>(x) && static_cast<int>(y));
 }
 
 int main(int argc, char* argv[])
@@ -61,14 +65,14 @@ int main(int argc, char* argv[])
 	int rows = (int)pow(2,no_of_bits);
 	int cols = no_of_bits;
 
-	Bool input[rows][cols];
-	Bool input_temp[cols][rows];
+	State input[rows][cols];
+	State input_temp[cols][rows];
 
 	int i,j,k;
 
 	for(i=0; i<rows; i++){
 		for(j=0; j<cols; j++){
-			input[i][j] = Bool::False;
+			input[i][j] = State::Low;
 		}
 	}
 
@@ -98,22 +102,22 @@ int main(int argc, char* argv[])
 	std::cout << std::endl;
 	std::cout << std::endl;
 
-	bool is_one = true;
+	State is_one = High;
 	for(i=0; i<cols; i++){
 		int c = 0;
 		static int counter = (int)pow(2, cols-1);
 		for(j=0; j<rows; j++){
-			if(c % counter == 0 && is_one == true){
-				is_one = false;
+			if(c % counter == 0 && is_one == High){
+				is_one = Low;
 			}
-			else if(c % counter == 0 && is_one == false){
-				is_one = true;
+			else if(c % counter == 0 && is_one == Low){
+				is_one = High;
 			}
 			if(is_one){
-				input_temp[i][j] = Bool::True;
+				input_temp[i][j] = State::High;
 			}
 			else{
-				input_temp[i][j] = Bool::False;
+				input_temp[i][j] = State::Low;
 			}
 			c++;
 		}
@@ -154,7 +158,7 @@ int main(int argc, char* argv[])
 		g.init(input[i][6]);
 		h.init(input[i][7]);
 		// std::cout << (a*b)+(a+b) << std::endl;
-		std::cout << (a*b)+(a+b) << std::endl;
+		std::cout << !((a*b)*(a+b)) << std::endl;
 	}
 
 	return 0;
