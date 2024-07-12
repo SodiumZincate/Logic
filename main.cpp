@@ -95,21 +95,29 @@ int main(int argc, char* argv[])
 	}
 
 	Logic a,b,c,d,e,f,g,h;
-	for(i=0; i<rows; i++){
-		a.init(input[i][0]);
-		b.init(input[i][1]);
-		c.init(input[i][2]);
-		d.init(input[i][3]);
-		e.init(input[i][4]);
-		f.init(input[i][5]);
-		g.init(input[i][6]);
-		h.init(input[i][7]);
-		State carry_in = State::High;
-		State sum, carry_out;
-		sum = XOR(XOR(a,b), carry_in);
-		carry_out = OR(AND(XOR(a,b), carry_in), AND(a,b));
-		std::cout << "Sum: " << sum << std::endl;
-		std::cout << "Carry Out: " << carry_out << std::endl;
+	std::vector<State> state_list = {State::Low, State::High};
+	for(State carry_in : state_list){
+		for(i=0; i<rows; i++){
+			a.init(input[i][0]);
+			b.init(input[i][1]);
+			c.init(input[i][2]);
+			d.init(input[i][3]);
+			e.init(input[i][4]);
+			f.init(input[i][5]);
+			g.init(input[i][6]);
+			h.init(input[i][7]);
+
+			std::vector<State> output;
+			output = ADDER_BIT_2(a,b,carry_in);
+			State sum = output[0];
+			State carry_out = output[1];
+
+			std::cout
+			<< "Carry In: " << carry_in
+			<< " || " << carry_in << "+" << input[i][0] << "+" << input[i][1] << " = " << sum
+			<< " || Carry Out: " << carry_out
+			<< std::endl;		
+		}
 	}
 
 	return 0;
