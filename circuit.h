@@ -12,6 +12,10 @@ class Logic{
 	private:
 		State state;
 	public:
+		Logic(State);
+		Logic();
+		void init(State);
+
 		State operator*(Logic x);
 		State operator*(State x);
 		friend State operator*(State, Logic);
@@ -22,17 +26,5 @@ class Logic{
 		friend State operator+(State, Logic);
 		friend State operator+(State, State);
 
-		State operator!(){
-			return static_cast<State>(!static_cast<int>(state));
-		}
-
-		Logic(State x){
-			state = x;
-		}
-		Logic(){
-			state = State::Low;
-		}
-		void init(State x){
-			state = x;
-		}
+		State operator!();
 };
