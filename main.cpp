@@ -49,16 +49,16 @@ int main(int argc, char* argv[])
 	std::cout << std::endl;
 	std::cout << std::endl;
 
-	State is_one = High;
+	bool is_one = true;
 	for(i=0; i<cols; i++){
 		int c = 0;
 		static int counter = (int)pow(2, cols-1);
 		for(j=0; j<rows; j++){
 			if(c % counter == 0 && is_one == High){
-				is_one = Low;
+				is_one = false;
 			}
 			else if(c % counter == 0 && is_one == Low){
-				is_one = High;
+				is_one = true;
 			}
 			if(is_one){
 				input_temp[i][j] = State::High;
@@ -105,7 +105,7 @@ int main(int argc, char* argv[])
 		g.init(input[i][6]);
 		h.init(input[i][7]);
 		// std::cout << (a*b)+(a+b) << std::endl;
-		std::cout << !((a*b)+!(a+b)) << std::endl;
+		// std::cout << ()(!(a*b)*(a+b)) << std::endl;
 	}
 
 	return 0;
