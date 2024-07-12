@@ -3,45 +3,54 @@
 #include<cmath>
 // #include<string>
 
+enum Bool{
+	False = 0,
+	True = 1
+};
+
 class Logic{
 	public:
-		int state;
-		int operator*(Logic x){
-			return state && x.state;
+		Bool state;
+		Bool operator*(Logic x){
+			return static_cast<Bool>(static_cast<int>(state) && static_cast<int>(x.state));
 		}
-		int operator*(int x){
-			return state && x;
+		Bool operator*(Bool x){
+			return static_cast<Bool>(static_cast<int>(state) && static_cast<int>(x));
 		}
-		friend int operator*(Logic x);
+		friend Bool operator*(Logic x);
 
-		int operator+(Logic x){
-			return state || x.state;
+		Bool operator+(Logic x){
+			return static_cast<Bool>(static_cast<int>(state) || static_cast<int>(x.state));
 		}
-		int operator+(int x){
-			return state || x;
+		Bool operator+(Bool x){
+			return static_cast<Bool>(static_cast<int>(state) || static_cast<int>(x));
 		}
-		friend int operator+(Logic x);
+		friend Bool operator+(Bool, Logic);
+		friend Bool operator+(Bool, Bool);
 
-		int operator!(){
-			return !state;
+		Bool operator!(){
+			return static_cast<Bool>(!static_cast<int>(state));
 		}
 
-		Logic(int x){
+		Logic(Bool x){
 			state = x;
 		}
 		Logic(){
-			state = 0;
+			state = Bool::False;
 		}
-		void init(int x){
+		void init(Bool x){
 			state = x;
 		}
 };
 
-int operator+(int x, Logic y){
-	return x || y.state;
+Bool operator+(Bool x, Logic y){
+	return static_cast<Bool>(static_cast<int>(x) || static_cast<int>(y.state));
 }
-int operator*(int x, Logic y){
-	return x && y.state;
+Bool operator+(Bool x, Bool y){
+	return static_cast<Bool>(static_cast<int>(x) || static_cast<int>(y));
+}
+Bool operator*(Bool x, Logic y){
+	return static_cast<Bool>(static_cast<int>(x) && static_cast<int>(y.state));
 }
 
 int main(int argc, char* argv[])
@@ -52,14 +61,14 @@ int main(int argc, char* argv[])
 	int rows = (int)pow(2,no_of_bits);
 	int cols = no_of_bits;
 
-	int input[rows][cols];
-	int input_temp[cols][rows];
+	Bool input[rows][cols];
+	Bool input_temp[cols][rows];
 
 	int i,j,k;
 
 	for(i=0; i<rows; i++){
 		for(j=0; j<cols; j++){
-			input[i][j] = 0;
+			input[i][j] = Bool::False;
 		}
 	}
 
@@ -101,10 +110,10 @@ int main(int argc, char* argv[])
 				is_one = true;
 			}
 			if(is_one){
-				input_temp[i][j] = 1;
+				input_temp[i][j] = Bool::True;
 			}
 			else{
-				input_temp[i][j] = 0;
+				input_temp[i][j] = Bool::False;
 			}
 			c++;
 		}
@@ -144,8 +153,9 @@ int main(int argc, char* argv[])
 		f.init(input[i][5]);
 		g.init(input[i][6]);
 		h.init(input[i][7]);
+		// std::cout << (a*b)+(a+b) << std::endl;
+		std::cout << (a*b)+(a+b) << std::endl;
 	}
-	int x = (a*b)+(!a);
 
 	return 0;
 }
