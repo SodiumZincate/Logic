@@ -10,9 +10,8 @@ enum State{
 };
 
 class Logic{
-	private:
-		State state;
 	public:
+		State state;
 		Logic(State);
 		Logic();
 		void init(State);
@@ -49,7 +48,10 @@ class Logic{
 		friend std::vector<State> FULL_ADDER(Logic&, State, State);
 		friend std::vector<State> FULL_ADDER(State, Logic&, State);
 		
+		friend std::vector<State> ADDER_BIT_4(State, State, State, State, State, State, State, State, State);
+
 		// friend std::vector<State> ADDER_BIT_4(Logic&, Logic&, State = State::Low);
+		friend std::vector<State> ADDER_BIT_4(Logic&, Logic&, Logic&, Logic&, Logic&, Logic&, Logic&, Logic&, State);
 };
 
 State OR(State, State);
@@ -57,3 +59,5 @@ State AND(State, State);
 State XOR(State, State);
 std::vector<State> HALF_ADDER(State, State);
 std::vector<State> FULL_ADDER(State, State, State);
+
+std::vector<State> ADDER_BIT_4(State, State, State, State, State, State, State, State, State);

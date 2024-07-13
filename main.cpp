@@ -110,24 +110,46 @@ int main(int argc, char* argv[])
 			std::vector<State> output;
 			State sum , carry_out;
 
-			output = HALF_ADDER(a,b);
-			sum = output[0];
-			carry_out = output[1];
+			// output = HALF_ADDER(a,b);
+			// sum = output[0];
+			// carry_out = output[1];
+
+			// std::cout
+			// << "HALF ADDER\n"
+			// << " || " << input[i][0] << "+" << input[i][1] << " = " << sum
+			// << " || Carry Out: " << carry_out
+			// << std::endl;		
+
+			// output = FULL_ADDER(a,b,carry_in);
+			// sum = output[0];
+			// carry_out = output[1];
+
+			// std::cout
+			// << "FULL ADDER\n"
+			// << "Carry In: " << carry_in
+			// << " || " << carry_in << "+"<< input[i][0] << "+" << input[i][1] << " = " << sum
+			// << " || Carry Out: " << carry_out
+			// << std::endl;
+
+			std::vector<State> sum_list;
+
+			// 1011 || Carry_out = 1
+			// output = ADDER_BIT_4(a.state, b.state, c.state, d.state, e.state, f.state, g.state, h.state, carry_in);
+			output = ADDER_BIT_4(a, b, c, d, e, f, g, h, carry_in);
+
+
+			for(State x : output){
+				sum_list.push_back(x); // 1 -> 0,1 -> 1,0,1 -> 1,1,0,1
+			}
+
+			carry_out = output[4]; // Carry_Out = 1
 
 			std::cout
-			<< "HALF ADDER\n"
-			<< " || " << input[i][0] << "+" << input[i][1] << " = " << sum
-			<< " || Carry Out: " << carry_out
-			<< std::endl;		
-
-			output = FULL_ADDER(a,b,carry_in);
-			sum = output[0];
-			carry_out = output[1];
-
-			std::cout
-			<< "FULL ADDER\n"
+			<< "4-BIT ADDER\n"
 			<< "Carry In: " << carry_in
-			<< " || " << carry_in << "+"<< input[i][0] << "+" << input[i][1] << " = " << sum
+			<< " || " << carry_in << " + "<< input[i][0] << input[i][1] << input[i][2] << input[i][3] 
+			<< " + " << input[i][4] << input[i][5] << input[i][6] << input[i][7] 
+			<< " = " << sum_list [3] << sum_list [2] << sum_list [1] << sum_list [0]
 			<< " || Carry Out: " << carry_out
 			<< std::endl;		
 		}
