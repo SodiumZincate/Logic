@@ -41,9 +41,13 @@ class Logic{
 		friend State XOR(Logic&, State);
 		friend State XOR(State, Logic&);
 		
-		friend std::vector<State> ADDER_BIT_2(Logic&, Logic&, State);
-		friend std::vector<State> ADDER_BIT_2(Logic&, State, State);
-		friend std::vector<State> ADDER_BIT_2(State, Logic&, State);
+		friend std::vector<State> HALF_ADDER(Logic&, Logic&);
+		friend std::vector<State> HALF_ADDER(Logic&, State);
+		friend std::vector<State> HALF_ADDER(State, Logic&);
+		
+		friend std::vector<State> FULL_ADDER(Logic&, Logic&, State);
+		friend std::vector<State> FULL_ADDER(Logic&, State, State);
+		friend std::vector<State> FULL_ADDER(State, Logic&, State);
 		
 		// friend std::vector<State> ADDER_BIT_4(Logic&, Logic&, State = State::Low);
 };
@@ -51,4 +55,5 @@ class Logic{
 State OR(State, State);
 State AND(State, State);
 State XOR(State, State);
-std::vector<State> ADDER_BIT_2(State, State, State);
+std::vector<State> HALF_ADDER(State, State);
+std::vector<State> FULL_ADDER(State, State, State);

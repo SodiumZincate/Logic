@@ -82,25 +82,50 @@ State XOR(State x, State y){
 	return static_cast<State>(!(x*y)*(x+y));
 }
 
-std::vector<State> ADDER_BIT_2(Logic &x, Logic &y, State carry_in = State::Low){
+std::vector<State> HALF_ADDER(Logic &x, Logic &y){
 	std::vector<State> output;
-	output.push_back((XOR(XOR(x.state,y.state), carry_in)));
-	output.push_back(OR(AND(XOR(x.state,y.state), carry_in), AND(x.state,y.state)));
+	output.push_back(XOR(x,y));
+	output.push_back(AND(x,y));
 	return output;
 }
-std::vector<State> ADDER_BIT_2(Logic &x, State y, State carry_in = State::Low){
+std::vector<State> HALF_ADDER(Logic &x, State y){
 	std::vector<State> output;
-	output.push_back((XOR(XOR(x.state,y), carry_in)));
-	output.push_back(OR(AND(XOR(x.state,y), carry_in), AND(x.state,y)));
+	output.push_back(XOR(x,y));
+	output.push_back(AND(x,y));
 	return output;
 }
-std::vector<State> ADDER_BIT_2(State x, Logic &y, State carry_in = State::Low){
+std::vector<State> HALF_ADDER(State x, Logic &y){
 	std::vector<State> output;
-	output.push_back((XOR(XOR(x,y.state), carry_in)));
-	output.push_back(OR(AND(XOR(x,y.state), carry_in), AND(x,y.state)));
+	output.push_back(XOR(x,y));
+	output.push_back(AND(x,y));
 	return output;
 }
-std::vector<State> ADDER_BIT_2(State x, State y, State carry_in = State::Low){
+std::vector<State> HALF_ADDER(State x, State y){
+	std::vector<State> output;
+	output.push_back(XOR(x,y));
+	output.push_back(AND(x,y));
+	return output;
+}
+
+std::vector<State> FULL_ADDER(Logic &x, Logic &y, State carry_in = State::Low){
+	std::vector<State> output;
+	output.push_back((XOR(XOR(x,y), carry_in)));
+	output.push_back(OR(AND(XOR(x,y), carry_in), AND(x,y)));
+	return output;
+}
+std::vector<State> FULL_ADDER(Logic &x, State y, State carry_in = State::Low){
+	std::vector<State> output;
+	output.push_back((XOR(XOR(x,y), carry_in)));
+	output.push_back(OR(AND(XOR(x,y), carry_in), AND(x,y)));
+	return output;
+}
+std::vector<State> FULL_ADDER(State x, Logic &y, State carry_in = State::Low){
+	std::vector<State> output;
+	output.push_back((XOR(XOR(x,y), carry_in)));
+	output.push_back(OR(AND(XOR(x,y), carry_in), AND(x,y)));
+	return output;
+}
+std::vector<State> FULL_ADDER(State x, State y, State carry_in = State::Low){
 	std::vector<State> output;
 	output.push_back((XOR(XOR(x,y), carry_in)));
 	output.push_back(OR(AND(XOR(x,y), carry_in), AND(x,y)));

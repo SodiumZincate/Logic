@@ -108,13 +108,26 @@ int main(int argc, char* argv[])
 			h.init(input[i][7]);
 
 			std::vector<State> output;
-			output = ADDER_BIT_2(a,b,carry_in);
-			State sum = output[0];
-			State carry_out = output[1];
+			State sum , carry_out;
+
+			output = HALF_ADDER(a,b);
+			sum = output[0];
+			carry_out = output[1];
 
 			std::cout
+			<< "HALF ADDER\n"
+			<< " || " << input[i][0] << "+" << input[i][1] << " = " << sum
+			<< " || Carry Out: " << carry_out
+			<< std::endl;		
+
+			output = FULL_ADDER(a,b,carry_in);
+			sum = output[0];
+			carry_out = output[1];
+
+			std::cout
+			<< "FULL ADDER\n"
 			<< "Carry In: " << carry_in
-			<< " || " << carry_in << "+" << input[i][0] << "+" << input[i][1] << " = " << sum
+			<< " || " << carry_in << "+"<< input[i][0] << "+" << input[i][1] << " = " << sum
 			<< " || Carry Out: " << carry_out
 			<< std::endl;		
 		}
